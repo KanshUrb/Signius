@@ -1,0 +1,40 @@
+item{
+	name:'aGesture'
+	id:1
+}
+item{
+	name:'bGesture'
+	id:2
+}
+item{
+	name:'cGesture'
+	id:3
+}
+item{
+	name:'dGesture'
+	id:4
+}
+item{
+	name:'eGesture'
+	id:5
+}
+item{
+	name:'fGesture'
+	id:6
+}
+item{
+	name:'gGesture'
+	id:7
+}
+item{
+	name:'hGesture'
+	id:8
+}
+item{
+	name:'iGesture'
+	id:9
+}
+item{
+	name:'undoGesture'
+	id:10
+}

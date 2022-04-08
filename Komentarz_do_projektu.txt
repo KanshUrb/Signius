@@ -1,0 +1,28 @@
+I. SŁOWO WSTEPU
+Dzień Dobry, zgodnie z prośbą zamieszczam krótki komentarz co do projektu oraz jego użycia. W plikach programu znalazł
+się komentarz wyjaśniający co się dzieje w danej linii, natomiast tutaj skupię się  na opisie jak z programu korzystać, zarówno używając przygotowanego przeze mnie modelu,
+oraz chcąc stworzyć swój własny model. Przypominam, że model działał poprawnie przy oświetleniu panującym w moim domu oraz rozpoznając gesty osób, które są na zdjęciach z których model się uczył.
+Niestety nie miałem okazji wypróbować działania modelu w innych warunkach, lecz uprzedzam, że model może po prostu nie działać/mieć znaczące problemy z działaniem
+
+II. Potrzebne zależności
+Wykorzystuję tutaj środowisko Anaconda3, dodatkowo potrzebne będą: C++ Build Tools, Protoc: https://github.com/protocolbuffers/protobuf/releases oraz TensorFlow models https://github.com/tensorflow/models. Zarówno
+Protoc jak i TF Models znajdują się już w projekcie (Odpowiednio /ExternalPackages oraz /LearningModeule/models. Do TKintera potrzebna będzie jeszcze dodatkowo biblioteka pillow.
+
+III. Użycie programu z wykorzystaniem gotowego modelu - wystarczy uruchomić plik app.py
+
+IV. Przygotowanie własnego modelu -
+
+a) należy zebrać zdjęcia - pomocnym może być moduł GettingImages.py
+b) następnie należy na każdym zdjęciu zaznaczyć obszar gestu oraz go podpisać - służy do tego labelImg - projekt pobrany z https://github.com/tzutalin/labelImg, w projekcie znajdujący się w ExternalPackages/labelImg
+c) po przygotowaniu zdjęć oraz plików xml należy przenieść je do folderów LearningModule/workspace/images/ część zdjęć wraz z plikami xml wrzucamy do folderów train i test (zalecam proorcję 85/15)
+d) następnie w pliku GenerateTfRecords.py tworzymy labele dla naszych gestów (nazwa każdego gestu musi być taka sama jak ta podana przy oznaczaniu zdjęć  w kroku b ). Należy pamiętać o zmianie ścieżki "WORKSPACE_PATH"
+w każdym pliku w którym występuje, jeśli do przechowywania danych rzeczy używamy innych folderów niż zalecane(podane w tym tutorialu), trzeba je również odpowiednio zmienić w kodzie
+e) w CreateModel.py to co należy zmienić, to plik konfiguracyjny, domyślny model pobrany z githuba TensorFlow znajduję się w LearningModule/workspace/pre-trained-models, jeśli chcemy wykorzystać lepszy model,
+ należy pobrać go z model zoo dostępnego na githubie projektu TensorFlow (inne modele na ogól mają identyczny plik konfiguracyjny, ale zalecam się upewnić). Plik konfiguracyjny z LearningModule/workspace/pre-trained-models
+ kopiujemy i wrzucamy do LearningModule/workspace/models. Następnie w skrypcie (CreateModel.py) go konfigurujemy, to co nas interesuje to 'pipeline_config.model.ssd.num_classes' oraz
+ 'pipeline_config.train_config.batch_size', te parametry należy zmienić. Ostatnią rzeczą do zmiany będzie liczba kroków modelu do zmiany w linii 46 (wywołanie model_main_tf2.py).
+f) po stworzeniu modelu ostatnie co należy zrobić do zmienić id checkpointu w DetectObject.py - ustawiamy na ostatni checkpoint do którego doszedł nasz model.
+g) Postępujemy zgodnie z podpunktem III
+
+V. Przy projekcie wykorzystałem wiedzę opartą głównie na oficjalnej dokumentacji, stackoverflow, oraz kanale na youtube: Nicholas Renotte. W razie jakichkolwiek pytań, trudności z uruchomieniem projektu proszę
+ o kontakt przez Microsoft Teams
